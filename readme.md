@@ -1,6 +1,6 @@
-# ***Sir Jon*** — juego para ZX Spectrum 48K
+# ***Sir Jon v 2.0*** — juego para ZX Spectrum 48K
 
-### Programado íntegramente en ensamblador Z80
+### Programado íntegramente en ensamblador Z80 por Juan Eguía
 
 <img src="screenshots/intro-titulo.jpg" width="640"/>
 
@@ -54,9 +54,12 @@ El juego se distribuye como fichero de cinta **`.tap`**, listo para cargar en cu
 
 ## El juego
 
-- **Objetivo:** recorrer el castillo de pantalla en pantalla hasta la puerta final. Algunas puertas solo se abren con la **llave**: si te falta, un indicador te recuerda que tienes que volver a por ella. Cuando la coges, vuela hasta el marcador con una fanfarria.
+- **Objetivo:** recorrer el castillo de pantalla en pantalla hasta la puerta final. Algunas puertas solo se abren con la **llave**: si te falta, un indicador te recuerda que tienes que volver a por ella. Cuando la coges, vuela hasta el marcador con un sonido.
+
 - **Vidas:** empiezas con 4. Las pierdes al tocar a un enemigo o una trampa, o al caer por un hueco del suelo. Tras perder una, el caballero parpadea un rato y es invulnerable.
+
 - **Vidas extra (1UP):** matar al murciélago con la espada da una vida extra.
+
 - **Enemigos y trampas:**
   - **Fantasmas** que cruzan la pantalla por ambos lados: se matan con la espada, mirando hacia ellos.
   - **Araña** que baja colgada de su hilo: también se puede matar.
@@ -64,6 +67,7 @@ El juego se distribuye como fichero de cinta **`.tap`**, listo para cargar en cu
   - **Arquero** que dispara flechas (lentas o rápidas según la pantalla).
   - **Flechas trampa**, **gotas** que caen del techo, **bolas de fuego**, **pinchos** que salen del suelo y **bloques trampa**.
 - **El salto** sirve sobre todo para **esquivar**: en lo alto del salto las flechas y los proyectiles no te alcanzan. Las flechas rápidas se esquivan saltando en el sitio y las lentas saltando hacia ellas con **Q** + **P**.
+
 - **Pantallas de plataformas:** entre la pantalla 10 y la 11 hay dos pantallas con huecos en el suelo que hay que salvar saltando, mientras dos fantasmas te atacan desde ambos lados.
 
 ---
@@ -75,22 +79,17 @@ El juego se distribuye como fichero de cinta **`.tap`**, listo para cargar en cu
 - **Dos pantallas nuevas de plataformas** con huecos en el suelo, caída animada y dos fantasmas.
 - **Espada:** ahora es un golpe por pulsación (antes, manteniendo ESPACIO, atacaba sin parar).
 - Se puede matar a la **araña** en todas las pantallas.
-- Muchas correcciones: pinchos, flecha rápida, parpadeo de la invulnerabilidad, restos gráficos de la explosión y del murciélago, una vida extra que se daba por error en la última pantalla, etc.
+- **Arreglados varios bugs menores**
 
 **Gráficos**
-- **Marcador** dentro de un recuadro medieval (muralla con almenas y torres), con colores nuevos.
+- **Marcador** dentro de un recuadro medieval (muralla con almenas y torres).
 - **Título** a doble tamaño con degradado y un recuadro con los controles.
-- **Decoración** nueva en varias pantallas: rastrillos y estandartes.
+- **Decoración** nueva en varias pantallas: estandartes, etc.
 - **Animación** de la llave volando hasta el marcador.
 
 **Sonido**
 - **Música** en el título (se corta con ESPACIO).
-- **Fanfarria** al coger la llave y al abrir las puertas que la necesitan.
-- **Melodía triste** en el game over y música de victoria al completar el juego.
-
-**Código**
-- Código **reorganizado y limpiado**: módulos con cabeceras y comentarios, pantallas descritas como datos y rutinas duplicadas eliminadas.
-- Dibujado del caballero optimizado: un **29 % menos** de tiempo de CPU por fotograma.
+- **Sonido** al **coger** la **llave** y al abrir las puertas que la necesitan y en el **game over**.
 
 ---
 
@@ -163,17 +162,21 @@ En Windows, **`compilar.bat`** hace los tres pasos:
 ## Detalles técnicos
 
 - **Máquina:** ZX Spectrum 48K, Z80 a 3,5 MHz. El código está en `$8000` y ocupa unos 22,8 KB.
+
 - **Gráficos:** sprites prerrotados (desplazados de 2 en 2 píxeles) y dibujados con OR sobre el fondo guardado, para que el caballero no borre el escenario que tiene detrás.
+
 - **Pantallas como datos:** cada pantalla es una lista de "piezas" (`P_SUELO`, `P_VENTANA`, `P_GRAFICO`, `P_HUECO`, `P_RECT`…) que interpreta `dibuja_lista`. Añadir o decorar una pantalla consiste en escribir datos, sin código nuevo.
-- **Salto:** es un desplazamiento visual (`salto_altura`) sobre la posición del caballero en el suelo, que sigue una tabla de alturas. Mientras está alto, las colisiones con los proyectiles se ignoran.
+
+- **Salto:** es un desplazamiento visual (`salto_altura`) sobre la posición del caballero en el suelo, que sigue una tabla de alturas. Mientras está alto, las colisiones con los objetos se ignoran.
+
 - **Sonido:** con la rutina BEEPER de la ROM (`$03B5`). Las melodías son tablas de notas que lee un pequeño reproductor (`musica.asm`).
 
 ---
 
 ## Historia del proyecto
 
-- **v1:** el juego original, escrito cuando el autor aprendía ensamblador Z80.
-- **v1.5:** revisión completa del código (limpieza, reorganización en módulos, pantallas como datos) y corrección de errores, además de mejoras gráficas y sonoras.
+- **v1:** el juego original, escrito cuando aprendía ensamblador Z80.
+- **v1.5:** revisión completa del código y corrección de errores, además de mejoras gráficas y sonoras.
 - **v2.0:** salto, pantallas de plataformas, espada por pulsación y más pulido general.
 
 ---
