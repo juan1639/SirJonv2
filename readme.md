@@ -185,4 +185,6 @@ En Windows, **`compilar.bat`** hace los tres pasos:
 
 - **Juan Eguía** — [github.com/juan1639](https://github.com/juan1639)
 
+- Gráficos creados con SevenuP (© Jaime Tejedor Gómez, "Metalbrain")
+
 Distribuido bajo la **licencia MIT**: consulta el fichero [LICENSE](LICENSE).
